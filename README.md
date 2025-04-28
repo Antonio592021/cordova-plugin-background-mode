@@ -167,6 +167,12 @@ In silent mode the plugin will not display a notification - which is not the def
 cordova.plugins.backgroundMode.setDefaults({ silent: true });
 ```
 
+### Sets the foreground service type for android 14+
+Android 14 and up requires the foregroundServiceType to be informed, otherwise the app crashes.
+
+```js
+cordova.plugins.backgroundMode.setServiceType('microphone');
+```
 
 ## Quirks
 
