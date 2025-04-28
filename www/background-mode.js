@@ -152,6 +152,21 @@ exports.configure = function (options)
 };
 
 /**
+ * Sets the foreground service type for Android.
+ *
+ * @param [ String ] serviceType The required Android foreground service type.
+ *
+ * @return [ Void ]
+ */
+exports.setServiceType = function (serviceType)
+{
+    if (this._isAndroid)
+    {
+        cordova.exec(null, null, 'BackgroundMode', 'setServiceType', [serviceType]);
+    }
+};
+
+/**
  * Enable GPS-tracking in background (Android).
  *
  * @return [ Void ]

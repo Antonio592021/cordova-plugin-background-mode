@@ -29,6 +29,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ServiceInfo;
 import android.content.res.Resources;
 import android.os.Binder;
 import android.os.Build;
@@ -66,6 +67,9 @@ public class ForegroundService extends Service {
 
     // Partial wake lock to prevent the app from going to sleep when locked
     private PowerManager.WakeLock wakeLock;
+
+    // Foreground service type
+    private int foregroundServiceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC;
 
     /**
      * Allow clients to call on to the service.
@@ -129,7 +133,11 @@ public class ForegroundService extends Service {
         boolean isSilent    = settings.optBoolean("silent", false);
 
         if (!isSilent) {
-            startForeground(NOTIFICATION_ID, makeNotification());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                startForeground(NOTIFICATION_ID, makeNotification(), foregroundServiceType);
+            } else {
+                startForeground(NOTIFICATION_ID, makeNotification());
+            }
         }
 
         PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
@@ -325,4 +333,10 @@ public class ForegroundService extends Service {
     {
         return (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
+
+    protected setServiceType(String serviceType) {
+        if (serviceType === 'microphone') {
+            foregroundServiceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE;
+        }
+    } 
 }

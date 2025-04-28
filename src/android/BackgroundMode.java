@@ -164,6 +164,14 @@ public class BackgroundMode extends CordovaPlugin {
     }
 
     /**
+     * Sets the foreground service type.
+     */
+    private void setServiceType(String serviceType)
+    {
+        service.setServiceType(serviceType);
+    }
+
+    /**
      * Enable the background mode.
      */
     private void enableMode()
